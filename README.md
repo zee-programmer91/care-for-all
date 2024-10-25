@@ -11,8 +11,6 @@ pip install -r requirements.txt
 ### (1) Back-End
 
 pip install django
-pip install djangorestframework
-pip install django-cors-headers
 
 ## (2) Run Front-End
 
