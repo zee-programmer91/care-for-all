@@ -26,4 +26,4 @@ python manage.py runserver
 ## Run Front-End
 
 cd front-end
-npm run web
+expo start
