@@ -8,7 +8,7 @@ interface TestPageProps {
 
 const TestPage: React.FC<TestPageProps> = () => {
     const [message, setMessage] = useState<string | null>(null);
-    const apiPoint = 'http://127.0.0.1:8000/';
+    const apiPoint = 'http://127.0.0.1:8000/index';
     const defaultErrorData = {
         message: "Failed to load message",
     };

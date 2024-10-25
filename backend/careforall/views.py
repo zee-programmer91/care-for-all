@@ -8,3 +8,6 @@ def index(request):
         'status': 200
     }
     return JsonResponse(data)
+
+def default(request):
+    return HttpResponse("Server Running...")
