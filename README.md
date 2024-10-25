@@ -1,6 +1,7 @@
 # care-for-all
 python -m venv env #create a virtul environment
 env\Scripts\activate # activate the enviroment
+pip install -r requirements.txt
 # NB MAKE SURE YOUR VIRTUAL ENVIRONMENT IS ACTIVE AT ALL TIME  
 
 # if first time
