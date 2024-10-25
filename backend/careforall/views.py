@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Here will be the landing or data for the landing page")
+    data = {
+        'message': "Message From Back End Received",
+        'status': 200
+    }
+    return JsonResponse(data)
