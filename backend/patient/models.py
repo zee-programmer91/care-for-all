@@ -2,31 +2,19 @@ from django.db import models
 
 # Create your models here.
 class Patient(models.Model):
-  idNumber = models.CharField(max_length=13)
-  firstName = models.CharField(max_length=255)
-  lastName = models.CharField(max_length=255)
-  dateOfBirth = models.CharField(max_length=100)
-  gender = models.CharField(max_length=1)
-
-class ContactInformation(models.Model):
-    idNumber = models.CharField(max_length=13)
-    phoneNumber = models.CharField(max_length=15)
-    emailAddress = models.CharField(max_length=100)
-
-class Address(models.Model):
-    idNumber = models.CharField(max_length=13)
-    addressLine1 = models.CharField(max_length=255)
-    addressLine2 = models.CharField(max_length=255)
-    city = models.CharField(max_length=50)
-    postalCode = models.CharField(max_length=4)
-    
-class MedicalHistory(models.Model):
-      idNumber = models.CharField(max_length=13)
-      chronicCondition = models.CharField(max_length=255)
-      allergies = models.CharField(max_length=3000)
-      medications = models.CharField(max_length=3000)
-      
-class EmergencyContact(models.Model):
-    idNumber = models.CharField(max_length=13)
-    firstName = models.CharField(max_length=255)
-    contactNumber = models.CharField(max_length=255)
+    idNumber = models.CharField(max_length=13, null=True)
+    firstName = models.CharField(max_length=255, null=True)
+    lastName = models.CharField(max_length=255, null=True)
+    dateOfBirth = models.CharField(max_length=100, null=True)
+    gender = models.CharField(max_length=1, null=True)
+    phoneNumber = models.CharField(max_length=15, null=True)
+    emailAddress = models.CharField(max_length=100, null=True)
+    addressLine1 = models.CharField(max_length=255, null=True)
+    addressLine2 = models.CharField(max_length=255, null=True)
+    city = models.CharField(max_length=50, null=True)
+    postalCode = models.CharField(max_length=4, null=True)
+    chronicCondition = models.CharField(max_length=255, null=True)
+    allergies = models.CharField(max_length=3000, null=True)
+    medications = models.CharField(max_length=3000, null=True)
+    contactName = models.CharField(max_length=255, null=True)
+    contactNumber = models.CharField(max_length=255, null=True)

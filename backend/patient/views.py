@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpRequest
-from .models import Patient, ContactInformation, Address, MedicalHistory, EmergencyContact
+from .models import Patient
 from rest_framework.decorators import api_view
 from rest_framework import status
 
@@ -36,40 +36,20 @@ def addPatientInformation(request: HttpRequest):
                 lastName=lastName,
                 dateOfBirth=dateOfBirth,
                 gender=gender,
-            )
-            
-            contactInformation = ContactInformation(
-                idNumber=idNumber,
                 phoneNumber=phoneNumber,
-                emailAddress=emailAddress
-            )
-            
-            address = Address(
-                idNumber=idNumber,
+                emailAddress=emailAddress,
                 addressLine1=addressLine1,
                 addressLine2=addressLine2,
                 city=city,
-                postalCode=postalCode
-            )
-            
-            medicalHistory = MedicalHistory(
-                idNumber=idNumber,
+                postalCode=postalCode,
                 chronicCondition=chronicCondition,
                 allergies=allergies,
-                medications=medications
-            )
-            
-            emergencyContact = EmergencyContact(
-                idNumber=idNumber,
-                firstName=emergencyContactName,
+                medications=medications,
+                contactName=emergencyContactName,
                 contactNumber=emergencyContactNumber,
             )
 
             patient.save()
-            contactInformation.save()
-            address.save()
-            medicalHistory.save()
-            emergencyContact.save()
             
             response = {
                 'status': status.HTTP_200_OK,
@@ -93,10 +73,6 @@ def getPatientInformation(request: HttpRequest):
             idNumber = request.POST.get('idNumber')
             
             patient = Patient.objects.get(idNumber=idNumber)
-            contactInformation = ContactInformation.objects.get(idNumber=idNumber)
-            address = Address.objects.get(idNumber=idNumber)
-            medicalHistory = MedicalHistory.objects.get(idNumber=idNumber)
-            emergencyContact = EmergencyContact.objects.get(idNumber=idNumber)
             
             data = {
                 'idNumber': patient.idNumber,
@@ -105,23 +81,23 @@ def getPatientInformation(request: HttpRequest):
                 'dateOfBirth': patient.dateOfBirth,
                 'gender': patient.gender,
                 'contactInformation': {
-                    'phoneNumber': contactInformation.phoneNumber,
-                    'emailAddress': contactInformation.emailAddress
+                    'phoneNumber': patient.phoneNumber,
+                    'emailAddress': patient.emailAddress
                 },
                 'address': {
-                    'addressLine1': address.addressLine1,
-                    'addressLine2': address.addressLine2,
-                    'city': address.city,
-                    'postalCode': address.postalCode
+                    'addressLine1': patient.addressLine1,
+                    'addressLine2': patient.addressLine2,
+                    'city': patient.city,
+                    'postalCode': patient.postalCode
                 },
                 'medicalHistory': {
-                    'chronicCondition': medicalHistory.chronicCondition,
-                    'allergies': medicalHistory.allergies,
-                    'medications': medicalHistory.medications
+                    'chronicCondition': patient.chronicCondition,
+                    'allergies': patient.allergies,
+                    'medications': patient.medications
                 },
                 'emergencyContact': {
-                    'firstName': emergencyContact.firstName,
-                    'contactNumber': emergencyContact.contactNumber
+                    'firstName': patient.firstName,
+                    'contactNumber': patient.contactNumber
                 }
             }
             
@@ -143,10 +119,6 @@ def updatePatientInformation(request: HttpRequest):
     try:
         idNumber = request.POST.get('idNumber')
         patient = get_object_or_404(Patient, idNumber=idNumber)
-        contactInformation = get_object_or_404(ContactInformation, idNumber=idNumber)
-        address = get_object_or_404(Address, idNumber=idNumber)
-        medicalHistory = get_object_or_404(MedicalHistory, idNumber=idNumber)
-        emergencyContact = get_object_or_404(EmergencyContact, idNumber=idNumber)
 
         if request.method == 'POST' and patient.idNumber:
             idNumber = request.POST.get('idNumber')
@@ -170,33 +142,20 @@ def updatePatientInformation(request: HttpRequest):
             patient.lastName = lastName
             patient.dateOfBirth = dateOfBirth
             patient.gender = gender
-            
-            contactInformation.phoneNumber = phoneNumber
-            contactInformation.emailAddress = emailAddress
-            
-            address.addressLine1 = addressLine1
-            address.addressLine2 = addressLine2
-            address.city = city
-            address.postalCode = postalCode
-            
-            medicalHistory.chronicCondition = chronicCondition
-            medicalHistory.allergies = allergies
-            medicalHistory.medications = medications
-            
-            emergencyContact.firstName = emergencyContactName
-            emergencyContact.contactNumber = emergencyContactNumber
+            patient.phoneNumber = phoneNumber
+            patient.emailAddress = emailAddress
+            patient.addressLine1 = addressLine1
+            patient.addressLine2 = addressLine2
+            patient.city = city
+            patient.postalCode = postalCode
+            patient.chronicCondition = chronicCondition
+            patient.allergies = allergies
+            patient.medications = medications
+            patient.contactName = emergencyContactName
+            patient.contactNumber = emergencyContactNumber
 
             patient.save()
-            contactInformation.save()
-            address.save()
-            medicalHistory.save()
-            emergencyContact.save()
-            
             patient = Patient.objects.get(idNumber=idNumber)
-            contactInformation = ContactInformation.objects.get(idNumber=idNumber)
-            address = Address.objects.get(idNumber=idNumber)
-            medicalHistory = MedicalHistory.objects.get(idNumber=idNumber)
-            emergencyContact = EmergencyContact.objects.get(idNumber=idNumber)
             
             data = {
                 'idNumber': patient.idNumber,
@@ -205,23 +164,23 @@ def updatePatientInformation(request: HttpRequest):
                 'dateOfBirth': patient.dateOfBirth,
                 'gender': patient.gender,
                 'contactInformation': {
-                    'phoneNumber': contactInformation.phoneNumber,
-                    'emailAddress': contactInformation.emailAddress
+                    'phoneNumber': patient.phoneNumber,
+                    'emailAddress': patient.emailAddress
                 },
                 'address': {
-                    'addressLine1': address.addressLine1,
-                    'addressLine2': address.addressLine2,
-                    'city': address.city,
-                    'postalCode': address.postalCode
+                    'addressLine1': patient.addressLine1,
+                    'addressLine2': patient.addressLine2,
+                    'city': patient.city,
+                    'postalCode': patient.postalCode
                 },
                 'medicalHistory': {
-                    'chronicCondition': medicalHistory.chronicCondition,
-                    'allergies': medicalHistory.allergies,
-                    'medications': medicalHistory.medications
+                    'chronicCondition': patient.chronicCondition,
+                    'allergies': patient.allergies,
+                    'medications': patient.medications
                 },
                 'emergencyContact': {
-                    'firstName': emergencyContact.firstName,
-                    'contactNumber': emergencyContact.contactNumber
+                    'firstName': patient.firstName,
+                    'contactNumber': patient.contactNumber
                 }
             }
 
