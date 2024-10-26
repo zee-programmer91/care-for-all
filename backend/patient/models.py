@@ -5,7 +5,7 @@ class Patient(models.Model):
   idNumber = models.CharField(max_length=13)
   firstName = models.CharField(max_length=255)
   lastName = models.CharField(max_length=255)
-  dateOfBirth = models.DateField
+  dateOfBirth = models.CharField(max_length=100)
   gender = models.CharField(max_length=1)
 
 class ContactInformation(models.Model):
