@@ -29,4 +29,4 @@ class MedicalHistory(models.Model):
 class EmergencyContact(models.Model):
     idNumber = models.CharField(max_length=13)
     firstName = models.CharField(max_length=255)
-    lastName = models.CharField(max_length=255)
+    contactNumber = models.CharField(max_length=255)
