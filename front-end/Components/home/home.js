@@ -1,41 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
 const HomePage = () => {
-  const navigation = useNavigation();
-  
-  // Example counts - replace with dynamic data in a real app
-  const [patientCount, setPatientCount] = useState(10);
-  const [practitionerCount, setPractitionerCount] = useState(5);
-  const [deliveryCount, setDeliveryCount] = useState(3);
+  const [count, setCount] = React.useState(0);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.statsContainer}>
-        <Text style={styles.statsText}>Patients: {patientCount}</Text>
-        <Text style={styles.statsText}>Medical Practitioners: {practitionerCount}</Text>
-        <Text style={styles.statsText}>Scheduled Deliveries: {deliveryCount}</Text>
-      </View>
-
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('AddPatient')}>
-        <Text style={styles.cardText}>Add Patient</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('AddHealthWorker')}>
-        <Text style={styles.cardText}>Add Medical Practitioner</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('ScheduleDelivery')}>
-        <Text style={styles.cardText}>Schedule Delivery</Text>
-      </TouchableOpacity>
-
-      <View style={styles.profileSection}>
-        <Text style={styles.profileTitle}>Clinic Admin Profile</Text>
-        {/* Add any profile details here */}
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Counter: {count}</Text>
+      <Button title="Increment" onPress={() => setCount(count + 1)} />
+    </View>
   );
 };
 

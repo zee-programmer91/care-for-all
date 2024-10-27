@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'patient',
     'healthworker', 
     'django_extensions',
-    'delivery_schedulele'
+    'delivery_schedule',
 ]
 
 MIDDLEWARE = [
