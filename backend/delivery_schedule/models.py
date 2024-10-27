@@ -19,13 +19,13 @@ class DeliverySchedule(models.Model):
     ]
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
+    medicationName = models.ForeignKey(Medication, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-    delivery_date = models.DateField()
-    delivery_time = models.TimeField()
-    delivery_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
-    confirmation_notification = models.BooleanField(default=False)
-    additional_notes = models.TextField(blank=True, null=True)
+    deliveryDate = models.DateField()
+    deliveryTime = models.TimeField()
+    deliveryStatus = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    sendNotification = models.BooleanField(default=False)
+    additionalNotes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Delivery for Patient ID {self.patient.id} on {self.delivery_date}"
+        return f"Delivery for Patient ID {self.patient.id} on {self.deliveryDate}"
