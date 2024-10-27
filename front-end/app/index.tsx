@@ -7,10 +7,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Home from '../Components/Home';
-import AddPatient from '../Components/AddPatient';
-import AddHealthWorker from '../Components/AddHealthWorker';
-import ScheduleDelivery from '../Components/ScheduleDelivery';
+import Home from '../Components/home/home';
+import AddPatient from '../Components/patient/addPatient';
+import AddHealthWorker from '../Components/healthworker/addHealthWorker';
+import ScheduleDelivery from '../Components/delivery/ScheduleDelivery';
 
 
 ////AppRegistry.registerComponent(appName, () => App);
@@ -21,7 +21,7 @@ export default function Page() {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="HomePage" component={Home} options={{ title: 'Home' }} />
       <Stack.Screen name="AddPatient" component={AddPatient} options={{ title: 'Add Patient' }} />
-      <Stack.Screen name="AddMedicalPractitioner" component={AddHealthWorker} options={{ title: 'Add Medical Practitioner' }} />
+      <Stack.Screen name="AddHealthWorker" component={AddHealthWorker} options={{ title: 'Add Medical Practitioner' }} />
       <Stack.Screen name="ScheduleDelivery" component={ScheduleDelivery} options={{ title: 'Schedule Delivery' }} />
     </Stack.Navigator>
   );

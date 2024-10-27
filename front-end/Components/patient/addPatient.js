@@ -3,7 +3,8 @@ import { View, Text, TextInput, Button, ScrollView, StyleSheet } from 'react-nat
 import { Picker } from '@react-native-picker/picker';
 
 const AddPatient = () => {
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [dob, setDob] = useState(''); // Store date of birth as a string
   const [idNumber, setIdNumber] = useState('');
   const [folderNumber, setFolderNumber] = useState('');
@@ -19,6 +20,7 @@ const AddPatient = () => {
   const [currentMedications, setCurrentMedications] = useState('');
   const [emergencyContactName, setEmergencyContactName] = useState('');
   const [emergencyContactPhone, setEmergencyContactPhone] = useState('');
+  const apiPoint = 'http://127.0.0.1:8000/patient/add-patient';
 
   // Validate the date format YYYY/MM/DD
   const isValidDate = (dateString) => {
@@ -34,9 +36,9 @@ const AddPatient = () => {
     return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validate required fields
-    if (!fullName || !dob || !idNumber || !folderNumber || !gender || !phoneNumber || !addressLine1 || !city || !postalCode) {
+    if (!firstName || !lastName || !dob || !idNumber || !folderNumber || !gender || !phoneNumber || !addressLine1 || !city || !postalCode) {
       alert('Please fill in all required fields.');
       return;
     }
@@ -59,27 +61,48 @@ const AddPatient = () => {
       return;
     }
 
-    const patientData = {
-      fullName,
-      dob,
-      idNumber,
-      folderNumber,
-      gender,
-      phoneNumber,
-      email,
-      addressLine1,
-      addressLine2,
-      city,
-      postalCode,
-      chronicConditions,
-      allergies,
-      currentMedications,
-      emergencyContactName,
-      emergencyContactPhone,
+    const data = {
+      idNumber: idNumber,
+      firstName: firstName,
+      lastName: lastName,
+      dateOfBirth: dob,
+      gender: gender,
+      phoneNumber: phoneNumber,
+      emailAddress: email,
+      addressLine1: addressLine1,
+      addressLine2: addressLine2,
+      city: city,
+      postalCode: postalCode,
+      chronicCondition: chronicConditions,
+      allergies: allergies,
+      medications: currentMedications,
+      contactName: emergencyContactName,
+      contactNumber: emergencyContactPhone,
+      folderName: folderNumber,
     };
 
-    console.log("Patient Data Submitted:", patientData);
-    // You can add your database submission or API call here
+    try {
+      const response = await fetch(apiPoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const dataResponse = await response.json();
+      console.log("status: " + dataResponse);
+
+      if (response.ok && dataResponse.status === 200) {
+        console.log("Patient Data Submitted:", data);
+        alert('Patient information saved successfully!');
+      } else {
+        console.error('Error while saving patient information:', response);
+        alert('Failed to save patient information. Please try again later.');
+      }
+    } catch (e) {
+      alert('Error while saving patient information: ' + e.message)
+    }
   };
 
   return (
@@ -87,9 +110,15 @@ const AddPatient = () => {
       <Text style={styles.title}>Add Patient Profile</Text>
 
       <TextInput
+        placeholder="First Name"
+        value={firstName}
+        onChangeText={setFirstName}
+        style={styles.input}
+      />
+      <TextInput
         placeholder="Full Name"
-        value={fullName}
-        onChangeText={setFullName}
+        value={lastName}
+        onChangeText={setLastName}
         style={styles.input}
       />
       <TextInput
