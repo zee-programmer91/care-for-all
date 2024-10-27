@@ -2,20 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const Home = () => {
+const PatientHome = () => {
   const navigation = useNavigation();
-
-  // Example counts - replace with dynamic data in a real app
-  const [patientCount, setPatientCount] = useState(10);
-  const [practitionerCount, setPractitionerCount] = useState(5);
-  const [deliveryCount, setDeliveryCount] = useState(3);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.statsContainer}>
-      <Text>Welcome to CareForAll</Text>
-      </View>
-
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('UpcomingDelivery')}>
         <Text style={styles.cardText}>Upcoming Deliveries</Text>
       </TouchableOpacity>
@@ -29,7 +20,7 @@ const Home = () => {
         </TouchableOpacity>
 
       <View style={styles.profileSection}>
-        <Text style={styles.profileTitle}>Clinic Admin Profile</Text>
+        {/* <Text style={styles.profileTitle}>Clinic Admin Profile</Text> */}
         {/* Add any profile details here */}
       </View>
     </ScrollView>
@@ -43,6 +34,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#f8f9fa',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   statsContainer: {
     marginBottom: 20,
@@ -70,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default PatientHome;

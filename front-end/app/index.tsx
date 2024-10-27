@@ -14,7 +14,10 @@ import AddPatient from '../Components/patient/addPatient';
 import AddHealthWorker from '../Components/healthworker/addHealthWorker';
 import ScheduleDelivery from '../Components/delivery/scheduleDelivery';
 import Add from "@/Components/admin/add-patient-or-health-worker";
-import Patient from "@/Components/patient/patientPage";
+import PatientHome from "@/Components/patient/Home";
+import DeliveryHistory from "@/Components/patient/DeliveryHistory";
+import UpcomingAppointments from "@/Components/patient/UpcomingAppointments";
+import UpcomingDelivery from "@/Components/patient/UpcomingDelivery";
 
 
 ////AppRegistry.registerComponent(appName, () => App);
@@ -45,7 +48,7 @@ function TabNavigator() {
     })}
       >
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Patient" component={Patient} />
+        <Tab.Screen name="Patient" component={PatientHome} />
         <Tab.Screen name="Add" component={Add} />
         <Tab.Screen name="ScheduleDelivery" component={ScheduleDelivery} />
     </Tab.Navigator>
@@ -58,6 +61,9 @@ export default function Page() {
       <Stack.Screen name="Care For All" component={TabNavigator} />
       <Stack.Screen name="AddPatient" component={AddPatient} options={{ title: 'Add Patient' }} />
       <Stack.Screen name="AddHealthWorker" component={AddHealthWorker} options={{ title: 'Add Medical Practitioner' }} />
+      <Stack.Screen name="DeliveryHistory" component={DeliveryHistory} options={{ title: 'Delivery History' }} />
+      <Stack.Screen name="UpcomingAppointments" component={UpcomingAppointments} options={{ title: 'Upcoming Appointments' }} />
+      <Stack.Screen name="UpcomingDelivery" component={UpcomingDelivery} options={{ title: 'Upcoming Delivery' }} />
     </Stack.Navigator>
   );
 }

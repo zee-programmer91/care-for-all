@@ -20,25 +20,25 @@ const UpcomingDelivery = () => {
 
   const handleViewDetails = (deliveryId) => {
     // Prompt for OTP before viewing details
-    Alert.prompt(
-      'OTP Required',
-      'Please enter your OTP to view delivery details',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Submit',
-          onPress: (otp) => {
-            // Check OTP validity here
-            if (otp === '1234') {
-              Alert.alert("Access Granted", `Details for delivery ID: ${deliveryId}`);
-            } else {
-              Alert.alert("Invalid OTP", "Please try again.");
-            }
-          },
-        },
-      ],
-      'plain-text'
-    );
+    // Alert.prompt(
+    //   'OTP Required',
+    //   'Please enter your OTP to view delivery details',
+    //   [
+    //     { text: 'Cancel', style: 'cancel' },
+    //     {
+    //       text: 'Submit',
+    //       onPress: (otp) => {
+    //         // Check OTP validity here
+    //         if (otp === '1234') {
+    //           Alert.alert("Access Granted", `Details for delivery ID: ${deliveryId}`);
+    //         } else {
+    //           Alert.alert("Invalid OTP", "Please try again.");
+    //         }
+    //       },
+    //     },
+    //   ],
+    //   'plain-text'
+    // );
   };
 
   const renderDeliveryItem = ({ item }) => (
