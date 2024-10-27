@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Picker, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Picker } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const Profile = () => {
+export default function Profile() {
   const [fullName, setFullName] = useState('');
   const [dob, setDob] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -27,63 +26,15 @@ const Profile = () => {
     setDob(currentDate);
   };
 
-  const handleSave = async () => {
-    const profileData = {
-      fullName,
-      dob: dob.toISOString(),
-      idNumber,
-      gender,
-      phoneNumber,
-      email,
-      address1,
-      address2,
-      city,
-      postalCode,
-      chronicConditions,
-      allergies,
-      currentMedications,
-      emergencyContactName,
-      emergencyContactPhone,
-    };
-
-    try {
-      // Save data to AsyncStorage
-      await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
-      Alert.alert('Success', 'Profile information saved successfully!');
-    } catch (error) {
-      Alert.alert('Error', 'Failed to save profile information.');
-    }
+  const handleSave = () => {
+    console.log('Profile updated with:', {
+      fullName, dob, idNumber, gender, phoneNumber, email, address1, address2,
+      city, postalCode, chronicConditions, allergies, currentMedications,
+      emergencyContactName, emergencyContactPhone
+    });
+    
+    // Add logic to save or update profile information here.
   };
-
-  const loadProfileData = async () => {
-    try {
-      const savedData = await AsyncStorage.getItem('profileData');
-      if (savedData) {
-        const parsedData = JSON.parse(savedData);
-        setFullName(parsedData.fullName);
-        setDob(new Date(parsedData.dob));
-        setIdNumber(parsedData.idNumber);
-        setGender(parsedData.gender);
-        setPhoneNumber(parsedData.phoneNumber);
-        setEmail(parsedData.email);
-        setAddress1(parsedData.address1);
-        setAddress2(parsedData.address2);
-        setCity(parsedData.city);
-        setPostalCode(parsedData.postalCode);
-        setChronicConditions(parsedData.chronicConditions);
-        setAllergies(parsedData.allergies);
-        setCurrentMedications(parsedData.currentMedications);
-        setEmergencyContactName(parsedData.emergencyContactName);
-        setEmergencyContactPhone(parsedData.emergencyContactPhone);
-      }
-    } catch (error) {
-      console.error('Failed to load profile data:', error);
-    }
-  };
-
-  useEffect(() => {
-    loadProfileData();
-  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -93,7 +44,7 @@ const Profile = () => {
       <Text>Full Name</Text>
       <TextInput
         style={styles.input}
-        placeholder="Full Name(name and surnmae)"
+        placeholder="Full Name"
         value={fullName}
         onChangeText={setFullName}
       />
@@ -236,19 +187,17 @@ const Profile = () => {
       <Button title="Save" onPress={handleSave} />
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: { flexGrow: 1, padding: 20, backgroundColor: 'white' },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  input: { 
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1, 
-    marginBottom: 15, 
-    padding: 10, 
-    borderRadius: 5 
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 5
   },
 });
-
-export default Profile;
