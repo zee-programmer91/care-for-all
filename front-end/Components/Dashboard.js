@@ -12,11 +12,14 @@ export default function Dashboard() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Up Coming Delivery" component={Delivery} />
+      <Tab.Screen name="UP Coming Delivery" component={Delivery} />
       <Tab.Screen name="History" component={History} />
     </Tab.Navigator>
   );
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
