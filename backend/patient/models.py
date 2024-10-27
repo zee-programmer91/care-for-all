@@ -18,3 +18,4 @@ class Patient(models.Model):
     medications = models.CharField(max_length=3000, null=True)
     contactName = models.CharField(max_length=255, null=True)
     contactNumber = models.CharField(max_length=255, null=True)
+    folderName = models.CharField(max_length=100, null=True)

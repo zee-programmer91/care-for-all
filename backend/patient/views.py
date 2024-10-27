@@ -1,3 +1,4 @@
+import string
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpRequest
 from .models import Patient
@@ -12,23 +13,25 @@ def addPatientInformation(request: HttpRequest):
     }
 
     try:
-        if request.method == 'POST':
-            idNumber = request.POST.get('idNumber')
-            firstName = request.POST.get('firstName')
-            lastName = request.POST.get('lastName')
-            dateOfBirth = request.POST.get('dateOfBirth')
-            gender = request.POST.get('gender')
-            phoneNumber = request.POST.get('phoneNumber')
-            emailAddress = request.POST.get('emailAddress')
-            addressLine1 = request.POST.get('addressLine1')
-            addressLine2 = request.POST.get('addressLine2')
-            city = request.POST.get('city')
-            postalCode = request.POST.get('postalCode')
-            chronicCondition = request.POST.get('chronicCondition')
-            allergies = request.POST.get('allergies')
-            medications = request.POST.get('medications')
-            emergencyContactName = request.POST.get('emergencyContactName')
-            emergencyContactNumber = request.POST.get('emergencyContactNumber')
+        if request.method == 'POST' and request.data:
+            idNumber = request.data['idNumber']
+            firstName = request.data['firstName']
+            lastName = request.data['lastName']
+            dateOfBirth = request.data['dateOfBirth']
+            gender = request.data['gender']
+            gender = checkGender(gender)
+            phoneNumber = request.data['phoneNumber']
+            emailAddress = request.data['emailAddress']
+            addressLine1 = request.data['addressLine1']
+            addressLine2 = request.data['addressLine2']
+            city = request.data['city']
+            postalCode = request.data['postalCode']
+            chronicCondition = request.data['chronicCondition']
+            allergies = request.data['allergies']
+            medications = request.data['medications']
+            emergencyContactName = request.data['contactName']
+            emergencyContactNumber = request.data['contactNumber']
+            folderName = request.data['folderName']
 
             patient = Patient(
                 idNumber=idNumber,
@@ -47,6 +50,7 @@ def addPatientInformation(request: HttpRequest):
                 medications=medications,
                 contactName=emergencyContactName,
                 contactNumber=emergencyContactNumber,
+                folderName=folderName,
             )
 
             patient.save()
@@ -80,6 +84,7 @@ def getPatientInformation(request: HttpRequest):
                 'lastName': patient.lastName,
                 'dateOfBirth': patient.dateOfBirth,
                 'gender': patient.gender,
+                'folderName': patient.folderName,
                 'contactInformation': {
                     'phoneNumber': patient.phoneNumber,
                     'emailAddress': patient.emailAddress
@@ -117,26 +122,28 @@ def updatePatientInformation(request: HttpRequest):
     }
 
     try:
-        idNumber = request.POST.get('idNumber')
-        patient = get_object_or_404(Patient, idNumber=idNumber)
+        if request.method == 'POST' and request.data:
+            idNumber = request.data['idNumber']
+            patient = get_object_or_404(Patient, idNumber=idNumber)
 
-        if request.method == 'POST' and patient.idNumber:
-            idNumber = request.POST.get('idNumber')
-            firstName = request.POST.get('firstName')
-            lastName = request.POST.get('lastName')
-            dateOfBirth = request.POST.get('dateOfBirth')
-            gender = request.POST.get('gender')
-            phoneNumber = request.POST.get('phoneNumber')
-            emailAddress = request.POST.get('emailAddress')
-            addressLine1 = request.POST.get('addressLine1')
-            addressLine2 = request.POST.get('addressLine2')
-            city = request.POST.get('city')
-            postalCode = request.POST.get('postalCode')
-            chronicCondition = request.POST.get('chronicCondition')
-            allergies = request.POST.get('allergies')
-            medications = request.POST.get('postalCode')
-            emergencyContactName = request.POST.get('emergencyContactName')
-            emergencyContactNumber = request.POST.get('emergencyContactNumber')
+            idNumber = request.data['idNumber']
+            firstName = request.data['firstName']
+            lastName = request.data['lastName']
+            dateOfBirth = request.data['dateOfBirth']
+            gender = request.data['gender']
+            gender = checkGender(gender)
+            phoneNumber = request.data['phoneNumber']
+            emailAddress = request.data['emailAddress']
+            addressLine1 = request.data['addressLine1']
+            addressLine2 = request.data['addressLine2']
+            city = request.data['city']
+            postalCode = request.data['postalCode']
+            chronicCondition = request.data['chronicCondition']
+            allergies = request.data['allergies']
+            medications = request.data['medications']
+            emergencyContactName = request.data['contactName']
+            emergencyContactNumber = request.data['contactNumber']
+            folderName = request.data['folderName']
 
             patient.firstName = firstName
             patient.lastName = lastName
@@ -153,6 +160,7 @@ def updatePatientInformation(request: HttpRequest):
             patient.medications = medications
             patient.contactName = emergencyContactName
             patient.contactNumber = emergencyContactNumber
+            patient.folderName = folderName
 
             patient.save()
             patient = Patient.objects.get(idNumber=idNumber)
@@ -163,6 +171,7 @@ def updatePatientInformation(request: HttpRequest):
                 'lastName': patient.lastName,
                 'dateOfBirth': patient.dateOfBirth,
                 'gender': patient.gender,
+                'folderName': patient.folderName,
                 'contactInformation': {
                     'phoneNumber': patient.phoneNumber,
                     'emailAddress': patient.emailAddress
@@ -191,3 +200,14 @@ def updatePatientInformation(request: HttpRequest):
         response['data'] = str(e)
     finally:
         return JsonResponse(response)
+
+def checkGender(value: string):
+    genders = {
+        'male': 'M',
+        'female': 'F',
+        'other': 'O'
+    }
+    if value.lower() in ['male', 'female', 'other']:
+        return genders[value.lower()]
+    else:
+        return 'O'
