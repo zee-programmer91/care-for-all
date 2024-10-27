@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View,Button } from "react-native";
+<<<<<<< HEAD
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -13,6 +14,17 @@ export default function Page() {
         <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
       </Stack.Navigator>
 
+=======
+
+export default function Page() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.main}>
+        <Text style={styles.title}>Hello World</Text>
+        <Text style={styles.subtitle}>This is the first page of your app.</Text>
+      </View>
+    </View>
+>>>>>>> 1ab04a5422cc3cc38a484f159ac5f3f28ba9b369
   );
 }
 
