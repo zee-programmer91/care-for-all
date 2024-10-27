@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import AddPatient from './Components/AddPatient';
+import AddPatient from './Components/patient/addPatient';
 
 const Stack = createStackNavigator();
 
