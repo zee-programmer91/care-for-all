@@ -10,7 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../Components/home/home';
 import AddPatient from '../Components/patient/addPatient';
 import AddHealthWorker from '../Components/healthworker/addHealthWorker';
-import ScheduleDelivery from '../Components/delivery/ScheduleDelivery';
+import ScheduleDelivery from '../Components/delivery/scheduleDelivery';
 
 
 ////AppRegistry.registerComponent(appName, () => App);
