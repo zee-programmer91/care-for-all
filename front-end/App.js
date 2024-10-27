@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import AddPatient from './Components/AddPatient';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="AddPatient" component={AddPatient} />
       </Stack.Navigator>
     </NavigationContainer>
   );
