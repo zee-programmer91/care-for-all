@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'patient',
+    'healthworker', 
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
