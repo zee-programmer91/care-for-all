@@ -1,52 +1,33 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Dashboard from './patient_screens/Dashboard';
+import Profile from './patient_screens/Profile';
+import Delivery from './patient_screens/Delivery';
+import History from './patient_screens/History';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const HomeScreen = ({ navigation }) => {
-  const [count, setCount] = React.useState(0);
-
+function HomeTabs() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Counter: {count}</Text>
-      <Button title="Increment" onPress={() => setCount(count + 1)} />
-      <Button title="Go to Details" onPress={() => navigation.navigate('Details')} />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Dashboard" component={Dashboard} />
+      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Delivery" component={Delivery} />
+      <Tab.Screen name="History" component={History} />
+    </Tab.Navigator>
   );
-};
+}
 
-const DetailsScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Details Screen</Text>
-    </View>
-  );
-};
-
-const App = () => {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeTabs} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f8f8f8',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-});
-
-export default App;
+}
