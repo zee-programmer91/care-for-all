@@ -14,6 +14,7 @@ import AddPatient from '../Components/patient/addPatient';
 import AddHealthWorker from '../Components/healthworker/addHealthWorker';
 import ScheduleDelivery from '../Components/delivery/scheduleDelivery';
 import Add from "@/Components/admin/add-patient-or-health-worker";
+import Patient from "@/Components/patient/patientPage";
 
 
 ////AppRegistry.registerComponent(appName, () => App);
@@ -26,15 +27,17 @@ function TabNavigator() {
     screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
         let iconName;
-  
+
         if (route.name === 'Home') {
           iconName = 'home-outline';
         } else if (route.name === 'Add') {
           iconName = 'person-outline';
         } else if (route.name === 'ScheduleDelivery') {
           iconName = 'car-sport-outline';
+        } else if (route.name === 'Patient') {
+          iconName = 'accessibility-outline';
         }
-  
+
         return <Icon name={iconName ?? 'home-outline'} size={size} color={color} />;
       },
       tabBarActiveTintColor: 'tomato',
@@ -42,6 +45,7 @@ function TabNavigator() {
     })}
       >
         <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Patient" component={Patient} />
         <Tab.Screen name="Add" component={Add} />
         <Tab.Screen name="ScheduleDelivery" component={ScheduleDelivery} />
     </Tab.Navigator>
