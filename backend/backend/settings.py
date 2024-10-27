@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'patient',
     'healthworker', 
-    'django_extensions'
+    'django_extensions',
+    'delivery_schedulele'
 ]
 
 MIDDLEWARE = [
