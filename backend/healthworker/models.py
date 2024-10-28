@@ -2,9 +2,9 @@ from django.db import models
 
 class HealthWorkerProfile(models.Model):
     GENDER_CHOICES = [
-        ('m', 'male'),
-        ('f', 'female'),
-        ('o', 'other')
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other')
     ]
     
     JOB_TITLE_CHOICES = [
