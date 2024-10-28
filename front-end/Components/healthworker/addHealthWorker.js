@@ -13,7 +13,7 @@ const AddHealthWorker = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
 
-  const apiPoint = 'http://127.0.0.1:8000/profiles/';
+  const apiPoint = 'http://127.0.0.1:8000/healthworker/profiles/';
 
   const handleSubmit = async () => {
     if (!persalNumber || !jobTitle|| !licenseNumber || !fullName || !idNumber || !dob || !gender || !phoneNumber || !emailAddress) {
@@ -41,31 +41,32 @@ const AddHealthWorker = () => {
       return;
     }
 
-    const medPracData = new FormData();
-    medPracData.append('persal_number', persalNumber);
-    medPracData.append('job_title', jobTitle);
-    medPracData.append('license_number', licenseNumber);
-    medPracData.append('full_name', fullName);
-    medPracData.append('dob', dob);
-    medPracData.append('id_number', idNumber);
-    medPracData.append('gender', gender);
-    medPracData.append('phone_number', phoneNumber);
-    medPracData.append('email_address', emailAddress);
-
+    const medPracData = {
+      persalNumber,
+      jobTitle,
+      licenseNumber,
+      fullName,
+      idNumber,
+      dob,
+      gender,
+      phoneNumber,
+      emailAddress,
+    };
+  
     try {
       const response = await fetch(apiPoint, {
         method: 'POST',
-        body: medPracData,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(medPracData),
       });
-
+  
       const result = await response.json();
       if (response.ok) {
         alert('Form submitted successfully');
       } else {
-        alert('Failed to submit form: ' + result.message);
+        alert('Failed to submit form: ' + JSON.stringify(result));
       }
     } catch (error) {
       console.error('Error:', error);
@@ -105,7 +106,7 @@ const AddHealthWorker = () => {
 
         <Text>Date of Birth</Text>
         <TextInput
-            placeholder="Date of Birth (YYYY/MM/DD)"
+            placeholder="Date of Birth (YYYY-MM-DD)"
             value={dob}
             onChangeText={(text) => setDob(text)}
             style={styles.input}
