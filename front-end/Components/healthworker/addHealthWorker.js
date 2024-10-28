@@ -27,7 +27,7 @@ const AddHealthWorker = () => {
     }
 
     if (licenseNumber.length !== 13) {
-      alert('License Number must be 8 digits long.');
+      alert('License Number must be 13 digits long.');
       return;
     }
 
