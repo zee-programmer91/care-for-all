@@ -3,6 +3,7 @@ from .models import HealthWorkerProfile
 
 @admin.register(HealthWorkerProfile)
 class HealthWorkerProfileAdmin(admin.ModelAdmin):
-    list_display = ('fullName', 'jobTitle', 'persalNumber', 'emailAddress')
+    list_display = ('persalNumber','jobTitle','licenseNumber','fullName',
+                    'idNumber','dob','gender','phoneNumber','emailAddress',)
     search_fields = ('fullName', 'persalNumber', 'emailAddress')
 
