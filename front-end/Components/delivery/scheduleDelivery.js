@@ -12,7 +12,7 @@ const ScheduleDelivery = () => {
     const [sendNotification, setSendNotification] = useState(false);
     const [additionalNotes, setAdditionalNotes] = useState('');
 
-    const apiPoint = 'http://127.0.0.1:8000/index/';
+    const apiPoint = 'http://127.0.0.1:8000/delivery_schedule/schedule/';
 
     // replace with data fetched from backend
     const patients = [
